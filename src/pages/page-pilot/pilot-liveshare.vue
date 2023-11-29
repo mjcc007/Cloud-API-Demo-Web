@@ -136,8 +136,9 @@ import { CURRENT_CONFIG as config, CURRENT_CONFIG } from '/@/api/http/config'
 import { ELiveTypeName, ELiveTypeValue, GB28181Param, LiveConfigParam, LiveStreamStatus, RTSPParam, EVideoPublishType } from '/@/types/live-stream'
 import apiPilot from '/@/api/pilot-bridge'
 import { getRoot } from '/@/root'
-import { ELiveStatusValue, EStatusValue } from '/@/types'
+import { ELiveStatusValue, ELocalStorageKey, EStatusValue } from '/@/types'
 import { CaretRightFilled } from '@ant-design/icons-vue'
+import { getPushUrl } from '/@/api/manage'
 
 const root = getRoot()
 
@@ -178,9 +179,9 @@ const agoraParam = reactive({
   token: config.agoraToken,
   channelId: config.agoraChannel
 })
-const rtmpParam = {
-  url: config.rtmpURL + new Date().getTime()
-}
+const rtmpParam = ref({
+  url: config.rtmpURL // + new Date().getTime()
+})
 const rtspParam: RTSPParam = {
   userName: CURRENT_CONFIG.rtspUserName,
   password: CURRENT_CONFIG.rtspPassword,
@@ -271,7 +272,15 @@ const onPublishModeSelect = (val: string) => {
   publishModeSelected.value = val
   apiPilot.setVideoPublishType(publishModeSelected.value)
 }
-const onPlay = () => {
+const getPushUrlBySN = async () => {
+  const devStr = localStorage.getItem(ELocalStorageKey.Device)
+  if (!devStr) return ''
+  const dev = JSON.parse(devStr)
+  const sn = dev.sn
+  const ret = await getPushUrl(sn)
+  return ret.data || ''
+}
+const onPlay = async () => {
   console.info(JSON.stringify(agoraParam))
   if (!publishModeSelected.value) {
     message.warn('Please select publish mode!')
@@ -287,7 +296,9 @@ const onPlay = () => {
       break
     }
     case 2: {
-      apiPilot.setLiveshareConfig(ELiveTypeValue.RTMP, JSON.stringify(rtmpParam))
+      const pushUrl = await getPushUrlBySN()
+      rtmpParam.value = { url: pushUrl }
+      apiPilot.setLiveshareConfig(ELiveTypeValue.RTMP, JSON.stringify(rtmpParam.value))
       break
     }
     case 3: {

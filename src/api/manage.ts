@@ -186,3 +186,9 @@ export const changeFirmareStatus = async function (workspaceId: string, firmware
   const result = await request.put(url, param)
   return result.data
 }
+
+export const getPushUrl = async function (sn: string) {
+  const url = `${HTTP_PREFIX}/live/push-url?sn=${sn}`
+  const result = await request.post(url)
+  return result.data
+}

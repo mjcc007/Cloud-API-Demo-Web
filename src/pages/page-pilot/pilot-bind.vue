@@ -9,7 +9,7 @@
         <span class="fz20 pl5">{{ drone.data.model }}</span>
       </a-col>
       <a-col :span="3">
-        <span class="fz16" v-if="drone.data.bound_status" style="color: #737373">Bound</span>
+        <span class="fz16" v-if="drone.data.bound_status" style="color: #737373">绑定</span>
         <a-button type="primary" @click="onBindDevice" v-else>Bind</a-button>
       </a-col>
     </a-row>
