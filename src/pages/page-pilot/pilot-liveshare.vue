@@ -2,13 +2,13 @@
     <div class="width100 flex-column flex-justify-start flex-align-start" style="background-color: white;">
 
       <p class="fz16 ml10 mt15 mb10 color-text-title color-font-bold" style="color: #939393">
-        Before starting manually, please select the publish mode and livestream type
+        在手动开始之前，请选择发布模式和直播类型
       </p>
     <div
       class="mt15 flex-row flex-align-center flex-justify-between"
       style="width: 100%;">
       <p class="ml10 mb0 fz16" style="color: black">
-        Select Video Publish Mode:
+        选择发布模式:
       </p>
       <a-select
         style="width: 200px; margin-right: 20px;"
@@ -32,7 +32,7 @@
       class="flex-row flex-align-center flex-justify-between"
       style="width: 100%; margin-top: -10px;"
     >
-      <p class="ml10 mb0 fz16">Select Livestream Type:</p>
+      <p class="ml10 mb0 fz16">选择直播码流类型:</p>
       <a-select
         style="width: 200px; margin-right: 20px;"
         placeholder="Select Live Type"
@@ -53,7 +53,7 @@
     </div>
     <div class="width-100" style="margin-top: -10px;">
       <div class="ml10" style="width: 97%;">
-        <span class="fz16">Param: </span>
+        <span class="fz16">参数: </span>
         <span v-if="liveStreamStatus.type === ELiveTypeValue.Agora" style="word-break: break-all; color: #75c5f6;">
           <div class="flex-col flex-justify-center flex-align-center">
             <div>
@@ -86,8 +86,8 @@
     </div>
     <div class="mb20 flex-row flex-align-center flex-justify-center"
       style="width: 100%; ">
-      <a-button class="flex-column fz20 flex-align-center flex-justify-center" style="width: 100px;" type="ghost" @click="onPlay">Play</a-button>
-      <a-button class="flex-column fz20 flex-align-center flex-justify-center ml40" style="width: 100px;" type="ghost" @click="onStop">Stop</a-button>
+      <a-button class="flex-column fz20 flex-align-center flex-justify-center" style="width: 100px;" type="ghost" @click="onPlay">开始</a-button>
+      <a-button class="flex-column fz20 flex-align-center flex-justify-center ml40" style="width: 100px;" type="ghost" @click="onStop">停止</a-button>
     </div>
     <a-button v-if="playVisiable" class="flex-column flex-align-center" shape="circle" @click="showLivingStatus"
       style="position: fixed; top: 13vh; left: 5vw; opacity: 0.8; background-color: rgb(0,0,0,0)">

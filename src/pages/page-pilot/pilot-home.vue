@@ -49,19 +49,19 @@
             <a-button type="text" style="width: 48%; float: left;" @click="onBack">Cancel</a-button>
             <a-button type="text" style="width: 48%;" @click="onExit">Exit</a-button>
           </template>
-          <p>Data will not be synchronized between DJI Pilot and this server after exiting.</p>
+          <p>退出后, DJI Pilot与该服务器之间的数据将不会同步。</p>
         </a-modal>
       </div>
     </a-layout-sider>
     <a-layout-content class="right flex-column">
       <div class="mb5">
-        <span class="ml5" style="color: #939393;">Serial Number</span>
+        <span class="ml5" style="color: #939393;">序列号</span>
       </div>
       <div class="fz16" style="background-color: white; border-radius: 4px;">
         <a-row style="border-bottom: 1px solid #f4f8f9; height: 45px;" align="middle">
           <a-col :span="1"></a-col>
             <a-col :span="9">
-            Remote Control Sn
+            遥控器设备号
             </a-col>
           <a-col :span="13" class="flex-align-end flex-column">
             <span style="color: #737373">{{ device.data.gateway_sn }}</span>
@@ -69,20 +69,20 @@
         </a-row>
         <a-row style="border-bottom: 1px solid #f4f8f9; height: 45px;" align="middle" v-if="device.data.online_status && device.data.sn">
           <a-col :span="1"></a-col>
-          <a-col :span="9">Aircraft Sn</a-col>
+          <a-col :span="9">无人机设备号</a-col>
           <a-col :span="13" class="flex-align-end flex-column" >
             <span style="color: #737373">{{ device.data.sn }}</span>
           </a-col>
         </a-row>
       </div>
       <div class="mt5 mb5">
-        <span class="ml5" style="color: #939393;">Settings</span>
+        <span class="ml5" style="color: #939393;">设置</span>
       </div>
       <div class="fz16" style="background-color: white; border-radius: 4px;">
         <a-row v-if="device.data.online_status && device.data.sn" style="border-bottom: 1px solid #f4f8f9; height: 45px;" align="middle" @click="bindingDevice">
           <a-col :span="1"></a-col>
           <a-col :span="11">
-            Device Binding
+           设备绑定
           </a-col>
           <a-col :span="10" style="text-align: right">
             <span v-if="device.data.bound_status" style="color: #737373">Aircraft bound</span>
@@ -95,7 +95,7 @@
         <a-row style="border-bottom: 1px solid #f4f8f9; height: 45px;" align="middle" @click="onMediaSetting">
           <a-col :span="1"></a-col>
           <a-col :span="21">
-            Media File Upload
+           媒体文件上传
           </a-col>
           <a-col :span="2" class="flex-align-center flex-column" >
             <RightOutlined style="color: #8894a0; font-size: 20px;" />
@@ -103,14 +103,14 @@
         </a-row>
         <a-row style="border-bottom: 1px solid #f4f8f9; height: 45px;" align="middle" @click="onLiveshareSetting">
           <a-col :span="1"></a-col>
-          <a-col :span="21">Livestream Manually</a-col>
+          <a-col :span="21">手动直播</a-col>
           <a-col :span="2" class="flex-align-center flex-column">
             <RightOutlined style="color: #8894a0; font-size: 20px;" />
           </a-col>
         </a-row>
         <a-row style="border-bottom: 1px solid #f4f8f9; height: 45px;" align="middle" @click="onOpen3rdApp">
           <a-col :span="1"></a-col>
-          <a-col :span="21">Open 3rd Party APP</a-col>
+          <a-col :span="21">打开第三方APP</a-col>
           <a-col :span="2" class="flex-align-center flex-column">
             <RightOutlined style="color: #8894a0; font-size: 20px;" />
           </a-col>

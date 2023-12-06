@@ -1,10 +1,6 @@
 <template>
   <div class="login flex-column flex-justify-center flex-align-center m0 b0">
-    <a-image
-      style="width: 17vw; height: 10vw; margin-bottom: 50px"
-      :src="djiLogo"
-    />
-    <p class="logo fz35 pb50">Pilot Cloud API Demo</p>
+    <p class="logo fz35 pb50">机动飞机巡检</p>
     <a-form
       layout="inline"
       :model="formState"
@@ -53,7 +49,6 @@ import { getRoot } from '/@/root'
 import router from '/@/router'
 import { EComponentName, ELocalStorageKey, ERouterName, EUserType } from '/@/types'
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
-import djiLogo from '/@/assets/icons/dji_logo.png'
 
 const root = getRoot()
 
@@ -69,7 +64,7 @@ onMounted(async () => {
     return
   }
 
-  apiPilot.setPlatformMessage('Cloud Api Platform', '', '')
+  apiPilot.setPlatformMessage('无人机巡检平台', '', '')
 
   const token = localStorage.getItem(ELocalStorageKey.Token)
   if (token) {
