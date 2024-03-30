@@ -466,6 +466,9 @@ export enum EModeCode {
   Three_Blades_Landing,
   Upgrading,
   Disconnected,
+  APAS,
+  Quasi_Remote_Sensing_State,
+  COMMAND_FLIGHT,
 }
 
 export enum EGear {
