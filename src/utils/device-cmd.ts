@@ -13,6 +13,7 @@ import { DEFAULT_PLACEHOLDER } from './constants'
  */
 export function updateDeviceCmdInfoByOsd (cmdList: DeviceCmdItem[], deviceInfo: DeviceInfoType) {
   const { device, dock, gateway } = deviceInfo || {}
+  console.log("🚀 ~ updateDeviceCmdInfoByOsd ~ deviceInfo:", deviceInfo)
   if (!cmdList || cmdList.length < 1) {
     return
   }
@@ -160,13 +161,13 @@ function getBytes (bytes: number, index: number, fixed = 1) {
 // 补光灯状态
 function getSupplementLightState (cmdItem: DeviceCmdItem, airportProperties: any) {
   const supplementLightState = airportProperties?.basic_osd?.supplement_light_state
-  if (supplementLightState === SupplementLightStateEnum.Close) {
+  if (!supplementLightState) {
     cmdItem.operateText = DeviceCmdStatusText.DeviceSupplementLightCloseBtnText
     cmdItem.status = DeviceCmdStatusText.DeviceSupplementLightCloseNormalText
     if (cmdItem.cmdKey !== DeviceCmd.SupplementLightOpen) {
       exchangeDeviceCmd(cmdItem)
     }
-  } else if (supplementLightState === SupplementLightStateEnum.Open) {
+  } else if (supplementLightState) {
     cmdItem.operateText = DeviceCmdStatusText.DeviceSupplementLightOpenBtnText
     cmdItem.status = DeviceCmdStatusText.DeviceSupplementLightOpenNormalText
     if (cmdItem.cmdKey !== DeviceCmd.SupplementLightClose) {
@@ -412,6 +413,26 @@ export function updateDeviceCmdInfoByExecuteInfo (cmdList: DeviceCmdItem[], devi
           cmdItem.loading = true
         } else if (isExecuteFailed(deviceCmdExecuteInfo.output.status)) {
           cmdItem.status = DeviceCmdStatusText.DroneFormatFailedText
+          cmdItem.loading = false
+        } else if (deviceCmdExecuteInfo.output.status === DeviceCmdExecuteStatus.OK) {
+          cmdItem.loading = false
+        }
+      } else if (cmdItem.cmdKey === DeviceCmd.SupplementLightOpen) {
+        if (deviceCmdExecuteInfo.output.status === DeviceCmdExecuteStatus.InProgress) {
+          cmdItem.status = DeviceCmdStatusText.DeviceSupplementLightOpenInProgressText
+          cmdItem.loading = true
+        } else if (isExecuteFailed(deviceCmdExecuteInfo.output.status)) {
+          cmdItem.status = DeviceCmdStatusText.DeviceSupplementLightOpenFailedText
+          cmdItem.loading = false
+        } else if (deviceCmdExecuteInfo.output.status === DeviceCmdExecuteStatus.OK) {
+          cmdItem.loading = false
+        }
+      } else if (cmdItem.cmdKey === DeviceCmd.SupplementLightClose) {
+        if (deviceCmdExecuteInfo.output.status === DeviceCmdExecuteStatus.InProgress) {
+          cmdItem.status = DeviceCmdStatusText.DeviceSupplementLightCloseText
+          cmdItem.loading = true
+        } else if (isExecuteFailed(deviceCmdExecuteInfo.output.status)) {
+          cmdItem.status = DeviceCmdStatusText.DeviceSupplementLightCloseFailedText
           cmdItem.loading = false
         } else if (deviceCmdExecuteInfo.output.status === DeviceCmdExecuteStatus.OK) {
           cmdItem.loading = false
